@@ -1,0 +1,48 @@
+<div class="container">
+    <h2>Entity List</h2>
+    <div class="input-group mb-3">
+        <input [(ngModel)]="newEntityName" class="form-control" placeholder="Ennemi A, Ennemi B, ..." (keyup.enter)="addEntity()"/>
+        <button class="btn btn-primary" (click)="addEntity()">Ajouter</button>
+    </div>
+    <button class="btn btn-warning mb-3" (click)="passTurnForAll()">Passer un tour</button>
+    <div class="entity-list row">
+        <div *ngFor="let entity of entities" class="entity-card-container col-md-4">
+            <div class="entity-card-container__form">
+                <div class="entity-card-container__form--eliminated form-check">
+                    <input type="checkbox" class="form-check-input" [(ngModel)]="entity.eliminated" />
+                    <label class="form-check-label">Hors Combat</label>
+                </div>
+                <div class="entity-card-container__form--name" [ngClass]="{'eliminated': entity.eliminated}">{{ entity.name }}</div>
+                <div class="entity-card-container__form--row input-group">
+                    <span class="input-group-text">PV</span>
+                    <input [(ngModel)]="entity.newHp" type="number" class="form-control" placeholder="0"/>
+                    <button class="btn btn-secondary" (click)="setHp(entity)">Valider</button>
+                </div>
+                <div class="entity-card-container__form--row input-group">
+                    <input [(ngModel)]="entity.newAffliction" class="form-control" placeholder="Affliction"/>
+                    <input [(ngModel)]="entity.newAfflictionTurns" type="number" class="form-control" placeholder="Turns"/>
+                    <button class="btn btn-secondary" (click)="setAffliction(entity)">Valider</button>
+                </div>
+                <div class="entity-card-container__form--row input-group">
+                    <input [(ngModel)]="entity.newBonus" class="form-control" placeholder="Bonus"/>
+                    <input [(ngModel)]="entity.newBonusTurns" type="number" class="form-control" placeholder="Turns"/>
+                    <button class="btn btn-secondary" (click)="setBonus(entity)">Valider</button>
+                </div>
+                <button class="btn btn-danger mt-2" (click)="deleteEntity(entity)">Supprimer</button>
+            </div>
+            <div class="entity-card-container__infos mt-3">
+                <div>PV: {{ entity.hp }}</div>
+                <div>Afflictions:
+                    <ul class="list-group">
+                        <li *ngFor="let affliction of entity.afflictions" class="list-group-item">{{ affliction.name }} ({{ affliction.turnsRemaining }} tours restants)</li>
+                    </ul>
+                </div>
+                <div>Bonus:
+                    <ul class="list-group">
+                        <li *ngFor="let bonus of entity.bonus" class="list-group-item">{{ bonus.name }} ({{ bonus.turnsRemaining }} tours restants)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

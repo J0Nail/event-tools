@@ -1,0 +1,66 @@
+.entity-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.entity-card-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0.5rem 0.5rem 0;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 280px; /* Increase the width of the cards */
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 0.5rem;
+
+        &--eliminated {
+            margin-bottom: 0.25rem;
+        }
+
+        &--name {
+            margin-bottom: 0.25rem;
+        }
+
+        &--row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.25rem;
+
+            .input-group-text {
+                width: 60px; /* Reduce the width of the input group text */
+                font-size: 0.8rem; /* Reduce the font size */
+            }
+
+            input {
+                width: 40px; /* Reduce the width of the inputs */
+                font-size: 0.8rem; /* Reduce the font size */
+                padding: 0.25rem; /* Reduce the padding */
+            }
+
+            button {
+                margin-left: 0.5rem;
+                font-size: 0.8rem; /* Reduce the font size */
+                padding: 0.25rem 0.5rem; /* Reduce the padding */
+            }
+        }
+    }
+
+    &__infos {
+        margin-top: 0.5rem;
+
+        .list-group-item {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem; /* Reduce the font size */
+        }
+    }
+}
+
+.eliminated {
+    text-decoration: line-through;
+}
