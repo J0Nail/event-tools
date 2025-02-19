@@ -11,6 +11,10 @@
       <button class="btn btn-secondary" (click)="setHp()">Valider</button>
     </div> -->
     <div class="entity-card-container__form--row input-group">
+        <span class="input-group-text">Difficulté</span>
+        <input [(ngModel)]="entity.difficulty" type="number" class="form-control" min="0" max="20" />
+    </div>
+    <div class="entity-card-container__form--row input-group">
       <input [(ngModel)]="entity.newAffliction" class="form-control" placeholder="Affliction"/>
       <input [(ngModel)]="entity.newAfflictionTurns" type="number" class="form-control" placeholder="Turns"/>
       <button class="btn btn-secondary" (click)="setAffliction()">Valider</button>

@@ -1,30 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-interface Affliction {
-  name: string;
-  turnsRemaining: number;
-}
-
-interface Bonus {
-  name: string;
-  turnsRemaining: number;
-}
-
-interface Entity {
-  id: number;
-  name: string;
-  hp: number;
-  newHp: number;
-  afflictions: Affliction[];
-  bonus: Bonus[];
-  eliminated: boolean;
-  newAffliction: string;
-  newAfflictionTurns: number;
-  newBonus: string;
-  newBonusTurns: number;
-}
+import { Entity, Affliction, Bonus } from '../../models/entity.model';
 
 @Component({
   selector: 'app-entity',

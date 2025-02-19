@@ -1,32 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { EntityComponent } from '../entity/entity.component';
+import { Entity, Affliction, Bonus } from '../../models/entity.model';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { EntityComponent } from '../entity/entity/entity.component';
 
-interface Affliction {
-  name: string;
-  turnsRemaining: number;
-}
-
-interface Bonus {
-  name: string;
-  turnsRemaining: number;
-}
-
-interface Entity {
-  id: number;
-  name: string;
-  hp: number;
-  newHp: number;
-  afflictions: Affliction[];
-  bonus: Bonus[];
-  eliminated: boolean;
-  newAffliction: string;
-  newAfflictionTurns: number;
-  newBonus: string;
-  newBonusTurns: number;
-}
 
 @Component({
   selector: 'app-entity-list',
@@ -56,7 +34,8 @@ export class EntityListComponent implements OnInit {
         newAffliction: '',
         newAfflictionTurns: 0,
         newBonus: '',
-        newBonusTurns: 0
+        newBonusTurns: 0,
+        difficulty: 0
       };
       this.entities.push(newEntity);
       this.newEntityName = '';
