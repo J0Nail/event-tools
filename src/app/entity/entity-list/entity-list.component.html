@@ -13,11 +13,11 @@
                     <label class="form-check-label">Hors Combat</label>
                 </div>
                 <div class="entity-card-container__form--name" [ngClass]="{'eliminated': entity.eliminated}">{{ entity.name }}</div>
-                <div class="entity-card-container__form--row input-group">
+                <!-- <div class="entity-card-container__form--row input-group">
                     <span class="input-group-text">PV</span>
                     <input [(ngModel)]="entity.newHp" type="number" class="form-control" placeholder="0"/>
                     <button class="btn btn-secondary" (click)="setHp(entity)">Valider</button>
-                </div>
+                </div> -->
                 <div class="entity-card-container__form--row input-group">
                     <input [(ngModel)]="entity.newAffliction" class="form-control" placeholder="Affliction"/>
                     <input [(ngModel)]="entity.newAfflictionTurns" type="number" class="form-control" placeholder="Turns"/>
@@ -31,15 +31,25 @@
                 <button class="btn btn-danger mt-2" (click)="deleteEntity(entity)">Supprimer</button>
             </div>
             <div class="entity-card-container__infos mt-3">
-                <div>PV: {{ entity.hp }}</div>
+                <div>
+                    PV: {{ entity.hp }}
+                    <button class="btn btn-warning" (click)="healEntity(entity)">+</button>
+                    <button class="btn btn-danger" (click)="damageEntity(entity)">-</button>
+                </div>
                 <div>Afflictions:
                     <ul class="list-group">
-                        <li *ngFor="let affliction of entity.afflictions" class="list-group-item">{{ affliction.name }} ({{ affliction.turnsRemaining }} tours restants)</li>
+                        <li *ngFor="let affliction of entity.afflictions" class="list-group-item">
+                            {{ affliction.name }} ({{ affliction.turnsRemaining }} tours restants)
+                            <button class="btn btn-danger btn-sm float-end" (click)="removeAffliction(entity, affliction)">Supprimer</button>
+                        </li>
                     </ul>
                 </div>
                 <div>Bonus:
                     <ul class="list-group">
-                        <li *ngFor="let bonus of entity.bonus" class="list-group-item">{{ bonus.name }} ({{ bonus.turnsRemaining }} tours restants)</li>
+                        <li *ngFor="let bonus of entity.bonus" class="list-group-item">
+                            {{ bonus.name }} ({{ bonus.turnsRemaining }} tours restants)
+                            <button class="btn btn-danger btn-sm float-end" (click)="removeBonus(entity, bonus)">Supprimer</button>
+                        </li>
                     </ul>
                 </div>
             </div>

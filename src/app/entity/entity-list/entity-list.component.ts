@@ -71,6 +71,14 @@ export class EntityListComponent {
     entity.newHp = 0;
   }
 
+  healEntity(entity: Entity) {
+    entity.hp++;
+  }
+
+  damageEntity(entity: Entity) {
+    entity.hp--;
+  }
+
   setAffliction(entity: Entity) {
     if (entity.newAffliction.trim()) {
       const existingAffliction = entity.afflictions.find(affliction => affliction.name === entity.newAffliction);
@@ -88,6 +96,10 @@ export class EntityListComponent {
     }
   }
 
+  removeAffliction(entity: Entity, affliction: Affliction) {
+    entity.afflictions = entity.afflictions.filter(a => a !== affliction);
+  }
+
   setBonus(entity: Entity) {
     if (entity.newBonus.trim()) {
       const existingBonus = entity.bonus.find(bonus => bonus.name === entity.newBonus);
@@ -103,6 +115,10 @@ export class EntityListComponent {
       entity.newBonus = '';
       entity.newBonusTurns = 0;
     }
+  }
+
+  removeBonus(entity: Entity, bonus: Bonus) {
+    entity.bonus = entity.bonus.filter(b => b !== bonus);
   }
 
   passTurnForAll() {
