@@ -38,6 +38,10 @@ export class EntityListComponent {
   entities: Entity[] = [];
   newEntityName: string = '';
 
+  ngOnInit() {
+    this.loadEntities();
+  }
+
   addEntity() {
     if (this.newEntityName.trim()) {
       const newEntity: Entity = {
@@ -55,28 +59,34 @@ export class EntityListComponent {
       };
       this.entities.push(newEntity);
       this.newEntityName = '';
+      this.saveEntities();
     }
   }
 
   toggleEliminated(entity: Entity) {
     entity.eliminated = !entity.eliminated;
+    this.saveEntities();
   }
 
   deleteEntity(entity: Entity) {
     this.entities = this.entities.filter(e => e.id !== entity.id);
+    this.saveEntities();
   }
 
   setHp(entity: Entity) {
     entity.hp = entity.newHp;
     entity.newHp = 0;
+    this.saveEntities();
   }
 
   healEntity(entity: Entity) {
     entity.hp++;
+    this.saveEntities();
   }
 
   damageEntity(entity: Entity) {
     entity.hp--;
+    this.saveEntities();
   }
 
   setAffliction(entity: Entity) {
@@ -93,11 +103,13 @@ export class EntityListComponent {
       }
       entity.newAffliction = '';
       entity.newAfflictionTurns = 0;
+      this.saveEntities();
     }
   }
 
   removeAffliction(entity: Entity, affliction: Affliction) {
     entity.afflictions = entity.afflictions.filter(a => a !== affliction);
+    this.saveEntities();
   }
 
   setBonus(entity: Entity) {
@@ -114,11 +126,13 @@ export class EntityListComponent {
       }
       entity.newBonus = '';
       entity.newBonusTurns = 0;
+      this.saveEntities();
     }
   }
 
   removeBonus(entity: Entity, bonus: Bonus) {
     entity.bonus = entity.bonus.filter(b => b !== bonus);
+    this.saveEntities();
   }
 
   passTurnForAll() {
@@ -134,5 +148,17 @@ export class EntityListComponent {
         }
       });
     });
+    this.saveEntities();
+  }
+
+  saveEntities() {
+    localStorage.setItem('entities', JSON.stringify(this.entities));
+  }
+
+  loadEntities() {
+    const entities = localStorage.getItem('entities');
+    if (entities) {
+      this.entities = JSON.parse(entities);
+    }
   }
 }
