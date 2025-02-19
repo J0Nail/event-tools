@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { EntityListComponent } from './entity-list.component';
 
 describe('EntityListComponent', () => {

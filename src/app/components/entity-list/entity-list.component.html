@@ -1,0 +1,13 @@
+<div class="container">
+    <h2>Entity List</h2>
+    <div class="input-group mb-3">
+      <input [(ngModel)]="newEntityName" class="form-control" placeholder="Ennemi A, Ennemi B, ..." (keyup.enter)="addEntity()"/>
+      <button class="btn btn-primary" (click)="addEntity()">Ajouter</button>
+    </div>
+    <button class="btn btn-warning mb-3" (click)="passTurnForAll()">Passer un tour</button>
+    <div class="entity-list row">
+      <div *ngFor="let entity of entities" class="entity-card-container col-md-4">
+        <app-entity [entity]="entity" (delete)="deleteEntity($event)" (update)="updateEntities()"></app-entity>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,46 @@
+<div class="entity-card-container">
+    <div class="entity-card-container__eliminated form-check">
+        <!-- <input type="checkbox" class="form-check-input" [(ngModel)]="entity.eliminated" /> -->
+        <!-- <label class="form-check-label">Hors Combat</label> -->
+        <div class="entity-card-container__form--name" [ngClass]="{'eliminated': entity.eliminated}">{{ entity.name }}</div>
+        <button class="btn btn-danger mt-2" (click)="delete.emit(entity)">X</button>
+    </div>
+    <!-- <div class="entity-card-container__form--row input-group">
+      <span class="input-group-text">PV</span>
+      <input [(ngModel)]="entity.newHp" type="number" class="form-control" placeholder="0"/>
+      <button class="btn btn-secondary" (click)="setHp()">Valider</button>
+    </div> -->
+    <div class="entity-card-container__form--row input-group">
+      <input [(ngModel)]="entity.newAffliction" class="form-control" placeholder="Affliction"/>
+      <input [(ngModel)]="entity.newAfflictionTurns" type="number" class="form-control" placeholder="Turns"/>
+      <button class="btn btn-secondary" (click)="setAffliction()">Valider</button>
+    </div>
+    <div class="entity-card-container__form--row input-group">
+      <input [(ngModel)]="entity.newBonus" class="form-control" placeholder="Bonus"/>
+      <input [(ngModel)]="entity.newBonusTurns" type="number" class="form-control" placeholder="Turns"/>
+      <button class="btn btn-secondary" (click)="setBonus()">Valider</button>
+    </div>
+  </div>
+  <div class="entity-card-container__infos mt-3">
+    <div>
+      PV: {{ entity.hp }}
+      <button class="btn btn-warning" (click)="healEntity()">+</button>
+      <button class="btn btn-danger" (click)="damageEntity()">-</button>
+    </div>
+    <div>Afflictions:
+      <ul class="list-group">
+        <li *ngFor="let affliction of entity.afflictions" class="list-group-item">
+          {{ affliction.name }} ({{ affliction.turnsRemaining }} tours restants)
+          <button class="btn btn-danger btn-sm float-end" (click)="removeAffliction(affliction)">X</button>
+        </li>
+      </ul>
+    </div>
+    <div>Bonus:
+      <ul class="list-group">
+        <li *ngFor="let bonus of entity.bonus" class="list-group-item">
+          {{ bonus.name }} ({{ bonus.turnsRemaining }} tours restants)
+          <button class="btn btn-danger btn-sm float-end" (click)="removeBonus(bonus)">X</button>
+        </li>
+      </ul>
+    </div>
+  </div>
