@@ -17,7 +17,7 @@ interface Entity {
   id: number;
   name: string;
   hp: number;
-  newHp: number; // Ajout de la propriété newHp
+  newHp: number;
   afflictions: Affliction[];
   bonus: Bonus[];
   eliminated: boolean;
@@ -44,7 +44,7 @@ export class EntityListComponent {
         id: Date.now(),
         name: this.newEntityName,
         hp: 0,
-        newHp: 0, // Initialisation de newHp
+        newHp: 0,
         afflictions: [],
         bonus: [],
         eliminated: false,
