@@ -13,19 +13,40 @@
     <div class="entity-card-container__form--row input-group">
         <span class="input-group-text">Difficulté</span>
         <input [(ngModel)]="entity.difficulty" type="number" class="form-control" min="0" max="20" />
+        <button class="btn btn-warning" (click)="increaseDifficulty()">+</button>
+        <button class="btn btn-danger" (click)="decreaseDifficulty()">-</button>
     </div>
     <div class="entity-card-container__form--row input-group">
       <input [(ngModel)]="entity.newAffliction" class="form-control" placeholder="Affliction"/>
       <input [(ngModel)]="entity.newAfflictionTurns" type="number" class="form-control" placeholder="Turns"/>
+      <select [(ngModel)]="entity.newAfflictionEffectType" class="form-select">
+        <option value="atkEffect">Attaque</option>
+        <option value="defEffect">Défense</option>
+        <option value="healEffect">Soin</option>
+        <option value="shieldEffect">Bouclier</option>
+        <option value="damageEffect">Dégat</option>
+      </select>
+      <input [(ngModel)]="entity.newAfflictionEffectValue" type="number" class="form-control" placeholder="Value"/>
       <button class="btn btn-secondary" (click)="setAffliction()">Valider</button>
     </div>
     <div class="entity-card-container__form--row input-group">
-      <input [(ngModel)]="entity.newBonus" class="form-control" placeholder="Bonus"/>
-      <input [(ngModel)]="entity.newBonusTurns" type="number" class="form-control" placeholder="Turns"/>
-      <button class="btn btn-secondary" (click)="setBonus()">Valider</button>
+      <input [(ngModel)]="entity.newRenfort" class="form-control" placeholder="Renfort"/>
+      <input [(ngModel)]="entity.newRenfortTurns" type="number" class="form-control" placeholder="Turns"/>
+      <select [(ngModel)]="entity.newRenfortEffectType" class="form-select">
+        <option value="atkEffect">Attaque</option>
+        <option value="defEffect">Défense</option>
+        <option value="healEffect">Soin</option>
+        <option value="shieldEffect">Bouclier</option>
+        <option value="damageEffect">Dégat</option>
+      </select>
+      <input [(ngModel)]="entity.newRenfortEffectValue" type="number" class="form-control" placeholder="Value"/>
+      <button class="btn btn-secondary" (click)="setRenfort()">Valider</button>
     </div>
   </div>
   <div class="entity-card-container__infos mt-3">
+    <div>
+      Difficulté: {{ entity.difficulty }}
+    </div>
     <div>
       PV: {{ entity.hp }}
       <button class="btn btn-warning" (click)="healEntity()">+</button>
@@ -35,15 +56,25 @@
       <ul class="list-group">
         <li *ngFor="let affliction of entity.afflictions" class="list-group-item">
           {{ affliction.name }} ({{ affliction.turnsRemaining }} tours restants)
+          <span *ngIf="affliction.atkEffect">Attaque: {{ affliction.atkEffect }}</span>
+          <span *ngIf="affliction.defEffect">Défense: {{ affliction.defEffect }}</span>
+          <span *ngIf="affliction.healEffect">Soin: {{ affliction.healEffect }}</span>
+          <span *ngIf="affliction.shieldEffect">Bouclier: {{ affliction.shieldEffect }}</span>
+          <span *ngIf="affliction.damageEffect">Dégats: {{ affliction.damageEffect }}</span>
           <button class="btn btn-danger btn-sm float-end" (click)="removeAffliction(affliction)">X</button>
         </li>
       </ul>
     </div>
-    <div>Bonus:
+    <div>Renforts:
       <ul class="list-group">
-        <li *ngFor="let bonus of entity.bonus" class="list-group-item">
-          {{ bonus.name }} ({{ bonus.turnsRemaining }} tours restants)
-          <button class="btn btn-danger btn-sm float-end" (click)="removeBonus(bonus)">X</button>
+        <li *ngFor="let renfort of entity.renforts" class="list-group-item">
+          {{ renfort.name }} ({{ renfort.turnsRemaining }} tours restants)
+          <span *ngIf="renfort.atkEffect">Attaque: {{ renfort.atkEffect }}</span>
+          <span *ngIf="renfort.defEffect">Défense: {{ renfort.defEffect }}</span>
+          <span *ngIf="renfort.healEffect">Soin: {{ renfort.healEffect }}</span>
+          <span *ngIf="renfort.shieldEffect">Bouclier: {{ renfort.shieldEffect }}</span>
+          <span class="damage-effect">Dégats: {{ renfort['damageEffect'] }}</span> <!-- Add damageEffect display -->
+          <button class="btn btn-danger btn-sm float-end" (click)="removeRenfort(renfort)">X</button>
         </li>
       </ul>
     </div>

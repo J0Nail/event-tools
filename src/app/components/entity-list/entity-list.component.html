@@ -1,13 +1,33 @@
 <div class="container">
-    <h2>Entity List</h2>
-    <div class="input-group mb-3">
-      <input [(ngModel)]="newEntityName" class="form-control" placeholder="Ennemi A, Ennemi B, ..." (keyup.enter)="addEntity()"/>
-      <button class="btn btn-primary" (click)="addEntity()">Ajouter</button>
-    </div>
-    <button class="btn btn-warning mb-3" (click)="passTurnForAll()">Passer un tour</button>
-    <div class="entity-list row">
-      <div *ngFor="let entity of entities" class="entity-card-container col-md-4">
-        <app-entity [entity]="entity" (delete)="deleteEntity($event)" (update)="updateEntities()"></app-entity>
-      </div>
+  <h2>Entity List</h2>
+  <div class="input-group mb-3">
+    <input [(ngModel)]="newEntityName" class="form-control" placeholder="Ennemi A, Ennemi B, ..." (keyup.enter)="addEntity()"/>
+    <button class="btn btn-primary" (click)="addEntity()">Ajouter</button>
+  </div>
+  <button class="btn btn-warning mb-3" (click)="passTurnForAll()">Passer un tour</button>
+  <div class="input-group mb-3">
+    <select [(ngModel)]="selectedEntityId" class="form-select">
+      <option [ngValue]="null">Sélectionner une entité</option>
+      <option *ngFor="let entity of entities" [value]="entity.id">{{ entity.name }}</option>
+    </select>
+    <select [(ngModel)]="targetEntityId" class="form-select">
+      <option [ngValue]="null">Sélectionner une cible</option>
+      <option *ngFor="let entity of entities" [value]="entity.id">{{ entity.name }}</option>
+    </select>
+    <input [(ngModel)]="diceRollResult" class="form-control" placeholder="Résultat du jet de dé" (keyup.enter)="processDiceRoll()"/>
+    <select [(ngModel)]="diceRollType" class="form-select">
+      <option [ngValue]="null">Sélectionner un type</option>
+      <option value="atkEffect">Attaque</option>
+      <option value="defEffect">Défense</option>
+      <option value="healEffect">Soin</option>
+      <option value="shieldEffect">Bouclier</option>
+      <option value="damageEffect">Dégat</option>
+    </select>
+    <button class="btn btn-secondary" (click)="processDiceRoll()">Soumettre</button>
+  </div>
+  <div class="entity-list row">
+    <div *ngFor="let entity of entities" class="entity-card-container col-md-4">
+      <app-entity [entity]="entity" (delete)="deleteEntity($event)" (update)="updateEntities()"></app-entity>
     </div>
   </div>
+</div>

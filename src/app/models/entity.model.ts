@@ -1,11 +1,23 @@
 export interface Affliction {
     name: string;
     turnsRemaining: number;
+    atkEffect: number;
+    defEffect: number;
+    healEffect: number;
+    shieldEffect: number;
+    damageEffect: number;
+    [key: string]: number | string;
 }
 
-export interface Bonus {
+export interface Renfort {
     name: string;
     turnsRemaining: number;
+    atkEffect: number;
+    defEffect: number;
+    healEffect: number;
+    shieldEffect: number;
+    damageEffect: number;
+    [key: string]: number | string;
 }
 
 export interface Entity {
@@ -14,11 +26,16 @@ export interface Entity {
     hp: number;
     newHp: number;
     afflictions: Affliction[];
-    bonus: Bonus[];
+    renforts: Renfort[];
     eliminated: boolean;
     newAffliction: string;
     newAfflictionTurns: number;
-    newBonus: string;
-    newBonusTurns: number;
+    newRenfort: string;
+    newRenfortTurns: number;
     difficulty: number;
+    newRenfortEffectType: string;
+    newRenfortEffectValue: number;
+    newAfflictionEffectType: string;
+    newAfflictionEffectValue: number;
+    damageEffect?: number;
 }

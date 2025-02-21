@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Entity, Affliction, Bonus } from '../../models/entity.model';
+import { Entity, Affliction, Renfort } from '../../models/entity.model';
 
 @Component({
   selector: 'app-entity',
@@ -31,22 +31,45 @@ export class EntityComponent {
     this.update.emit();
   }
 
-  setAffliction() {
-    if (this.entity.newAffliction.trim()) {
-      const existingAffliction = this.entity.afflictions.find(affliction => affliction.name === this.entity.newAffliction);
-      if (existingAffliction) {
-        existingAffliction.turnsRemaining = this.entity.newAfflictionTurns;
+  setEffect(effectList: any[], newEffectName: string, newEffectTurns: number, newEffectType: string, newEffectValue: number, effectType: 'affliction' | 'renfort') {
+    if (newEffectName.trim()) {
+      const existingEffect = effectList.find(effect => effect.name === newEffectName);
+      if (existingEffect) {
+        existingEffect.turnsRemaining = newEffectTurns;
+        existingEffect[newEffectType] = newEffectValue;
       } else {
-        const newAffliction: Affliction = {
-          name: this.entity.newAffliction,
-          turnsRemaining: this.entity.newAfflictionTurns
+        const newEffect = {
+          name: newEffectName,
+          turnsRemaining: newEffectTurns,
+          atkEffect: newEffectType === 'atkEffect' ? newEffectValue : 0,
+          defEffect: newEffectType === 'defEffect' ? newEffectValue : 0,
+          healEffect: newEffectType === 'healEffect' ? newEffectValue : 0,
+          shieldEffect: newEffectType === 'shieldEffect' ? newEffectValue : 0,
+          damageEffect: newEffectType === 'damageEffect' ? newEffectValue : 0
         };
-        this.entity.afflictions.push(newAffliction);
+        effectList.push(newEffect);
       }
-      this.entity.newAffliction = '';
-      this.entity.newAfflictionTurns = 0;
+      if (effectType === 'affliction') {
+        this.entity.newAffliction = '';
+        this.entity.newAfflictionTurns = 0;
+        this.entity.newAfflictionEffectType = '';
+        this.entity.newAfflictionEffectValue = 0;
+      } else {
+        this.entity.newRenfort = '';
+        this.entity.newRenfortTurns = 0;
+        this.entity.newRenfortEffectType = '';
+        this.entity.newRenfortEffectValue = 0;
+      }
       this.update.emit();
     }
+  }
+
+  setAffliction() {
+    this.setEffect(this.entity.afflictions, this.entity.newAffliction, this.entity.newAfflictionTurns, this.entity.newAfflictionEffectType, this.entity.newAfflictionEffectValue, 'affliction');
+  }
+
+  setRenfort() {
+    this.setEffect(this.entity.renforts, this.entity.newRenfort, this.entity.newRenfortTurns, this.entity.newRenfortEffectType, this.entity.newRenfortEffectValue, 'renfort');
   }
 
   removeAffliction(affliction: Affliction) {
@@ -54,31 +77,25 @@ export class EntityComponent {
     this.update.emit();
   }
 
-  setBonus() {
-    if (this.entity.newBonus.trim()) {
-      const existingBonus = this.entity.bonus.find(bonus => bonus.name === this.entity.newBonus);
-      if (existingBonus) {
-        existingBonus.turnsRemaining = this.entity.newBonusTurns;
-      } else {
-        const newBonus: Bonus = {
-          name: this.entity.newBonus,
-          turnsRemaining: this.entity.newBonusTurns
-        };
-        this.entity.bonus.push(newBonus);
-      }
-      this.entity.newBonus = '';
-      this.entity.newBonusTurns = 0;
-      this.update.emit();
-    }
-  }
-
-  removeBonus(bonus: Bonus) {
-    this.entity.bonus = this.entity.bonus.filter(b => b !== bonus);
+  removeRenfort(renfort: Renfort) {
+    this.entity.renforts = this.entity.renforts.filter(r => r !== renfort);
     this.update.emit();
   }
 
   toggleEliminated() {
     this.entity.eliminated = !this.entity.eliminated;
     this.update.emit();
+  }
+
+  increaseDifficulty() {
+    this.entity.difficulty++;
+    this.update.emit();
+  }
+
+  decreaseDifficulty() {
+    if (this.entity.difficulty > 0) {
+      this.entity.difficulty--;
+      this.update.emit();
+    }
   }
 }
